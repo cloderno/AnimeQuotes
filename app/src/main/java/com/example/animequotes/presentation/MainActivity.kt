@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import com.example.animequotes.R
+import com.example.animequotes.data.AppDatabase
 import com.example.animequotes.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,52 +19,33 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        AppDatabase.getInstance(this)
 
-//        replaceFragment(CharactersFragment(), Navigation.CHARACTERS)
-//
-//        binding.bottomNavigation.setOnItemSelectedListener {
-//            when(it.itemId) {
-//                R.id.menu_characters -> {
-//                    replaceFragment(CharactersFragment(), Navigation.CHARACTERS)
-//                    true
-//                }
-//                R.id.menu_episodes -> {
-//                    replaceFragment(EpisodesFragment(), Navigation.EPISODES)
-//                    true
-//                }
-//                R.id.menu_locations -> {
-//                    replaceFragment(LocationsFragment(), Navigation.LOCATIONS)
-//                    true
-//                }
-//                R.id.menu_favourites -> {
-//                    replaceFragment(FavouritesFragment(), Navigation.FAVOURITES)
-//                    true
-//                }
-//                else -> {
-//                    false
-//                }
-//            }
-//        }
+        replaceFragment(HomeFragment())
+
+        binding.bottomNavigation.setOnItemSelectedListener {
+            when(it.itemId) {
+                R.id.menu_home -> {
+                    replaceFragment(HomeFragment())
+                    true
+                }
+                R.id.menu_favourites -> {
+                    replaceFragment(FavouritesFragment())
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
+        }
     }
 
-    private fun replaceFragment(fragment: Fragment, title: String) {
+    private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.apply {
             beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .addToBackStack(null)
                 .commit()
-        }
-
-        replaceTitle(title)
-    }
-
-    private fun replaceTitle(title: String) {
-        // note: please consider using lower cased title definitions, to make it searchable from strings
-        try {
-            val resourceId = resources.getIdentifier(title, "string", packageName)
-            binding.toolBar.title = getString(resourceId)
-        } catch (e: Resources.NotFoundException) {
-            Log.e("MainActivity", "Invalid titleResId: $title", e)
         }
     }
 }

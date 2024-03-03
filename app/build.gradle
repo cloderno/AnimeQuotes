@@ -2,8 +2,11 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-    id 'com.google.dagger.hilt.android' version '2.44' apply false
+    id 'com.google.dagger.hilt.android'
 }
+
+apply plugin: 'kotlin-kapt'
+
 
 android {
     namespace 'com.example.animequotes'
@@ -37,8 +40,6 @@ android {
     }
 }
 
-apply plugin: 'kotlin-kapt'
-
 kapt {
     correctErrorTypes = true
 }
@@ -69,7 +70,7 @@ dependencies {
     var room_version = "2.6.1"
 
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$room_version"
 

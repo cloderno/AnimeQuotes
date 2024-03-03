@@ -1,6 +1,5 @@
-package com.example.animequotes.data
+package com.example.animequotes.data.remote
 
-import retrofit2.Call
 import retrofit2.http.GET
 
 interface AnimeQuoteService {

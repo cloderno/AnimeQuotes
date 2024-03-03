@@ -2,4 +2,27 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF1300</color>
+
+
+    <!-- Light theme colors -->
+    <color name="light_primary">#FFFFFF</color>
+    <color name="light_primary_variant">#CCCCCC</color>
+    <color name="light_on_primary">#000000</color>
+    <color name="light_secondary">#EEEEEE</color>
+    <color name="light_secondary_variant">#BBBBBB</color>
+    <color name="light_on_secondary">#000000</color>
+    <color name="light_status_bar">#FFFFFF</color>
+    <color name="light_navigation_bar">#DDDDDD</color>
+
+    <!-- Dark theme colors -->
+    <color name="dark_primary">#000000</color>
+    <color name="dark_primary_variant">#333333</color>
+    <color name="dark_on_primary">#FFFFFF</color>
+    <color name="dark_secondary">#222222</color>
+    <color name="dark_secondary_variant">#444444</color>
+    <color name="dark_on_secondary">#FFFFFF</color>
+    <color name="dark_status_bar">#000000</color>
+    <color name="dark_navigation_bar">#333333</color>
+
 </resources>

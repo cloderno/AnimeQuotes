@@ -1,4 +1,4 @@
-package com.example.animequotes.data
+package com.example.animequotes.data.remote
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
