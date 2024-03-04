@@ -1,5 +1,6 @@
 package com.example.animequotes.data
 
+import android.util.Log
 import com.example.animequotes.data.local.FavouriteQuote
 import com.example.animequotes.data.local.FavouriteQuoteDao
 import com.example.animequotes.data.remote.AnimeQuoteService
@@ -29,12 +30,19 @@ class QuoteRepositoryImpl(
     }
 
     override suspend fun saveQuoteToDatabase(quote: AnimeQuote) {
-        val favouriteQuote = FavouriteQuote(
-            anime = quote.anime,
-            character = quote.character,
-            quote = quote.quote
-        )
-        dao.insert(favouriteQuote)
+        val existingQuote = dao.getQuote(quote.quote)
+        if (existingQuote == null) {
+            val favouriteQuote = FavouriteQuote(
+                anime = quote.anime,
+                character = quote.character,
+                quote = quote.quote
+            )
+            dao.insert(favouriteQuote)
+        } else {
+            // Quote already exists in the database, handle accordingly
+            // For example, you can show a message or log a warning
+            Log.d("QuoteRepositoryImpl", "Quote already exists in database")
+        }
     }
 
     override suspend fun getAllQuotesFromDb(): List<FavouriteQuote> {

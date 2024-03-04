@@ -9,8 +9,11 @@ import androidx.room.Query
 // DAO interface
 @Dao
 interface FavouriteQuoteDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(quote: FavouriteQuote)
+
+    @Query("SELECT * FROM favorite_quotes WHERE quote = :quoteText")
+    fun getQuote(quoteText: String): FavouriteQuote?
 
     @Query("SELECT * FROM favorite_quotes")
     fun getAll(): List<FavouriteQuote>

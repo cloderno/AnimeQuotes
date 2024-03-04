@@ -26,6 +26,9 @@ class MainViewModel @Inject constructor(
     private val _animeQuote = MutableLiveData<AnimeQuote>()
     val animeQuote: LiveData<AnimeQuote> get() = _animeQuote
 
+    private val _quotes = MutableLiveData<List<FavouriteQuote>>()
+    val quotes: MutableLiveData<List<FavouriteQuote>> get() = _quotes
+
     fun load() {
         _isLoading.value = true
         viewModelScope.launch {
@@ -44,7 +47,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun saveQuoteToDatabase(quote: AnimeQuote) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.saveQuoteToDatabase(quote)
         }
     }
@@ -52,6 +55,7 @@ class MainViewModel @Inject constructor(
     fun getAllQuotes() {
         viewModelScope.launch(Dispatchers.IO) {
             val quotes = repository.getAllQuotesFromDb()
+            _quotes.postValue(quotes)
             quotes.forEach { quote ->
                 Log.d("TAG", "Anime: ${quote.anime}, Character: ${quote.character}, Quote: ${quote.quote}")
             }

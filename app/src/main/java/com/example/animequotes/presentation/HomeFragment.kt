@@ -1,6 +1,8 @@
 package com.example.animequotes.presentation
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -57,8 +59,8 @@ class HomeFragment : Fragment() {
         }
 
         binding.saveQuoteButton.setOnClickListener {
-            viewModel.animeQuote.value?.let {
-                viewModel.saveQuoteToDatabase(it)
+            viewModel.animeQuote.value?.let { animeQuote ->
+                viewModel.saveQuoteToDatabase(animeQuote)
             }
         }
 

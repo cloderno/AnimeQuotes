@@ -11,6 +11,10 @@ class FavouriteQuoteDaoImpl(database: AppDatabase) : FavouriteQuoteDao {
         dao.insert(quote)
     }
 
+    override fun getQuote(quoteText: String): FavouriteQuote? {
+        return dao.getQuote(quoteText)
+    }
+
     override fun getAll(): List<FavouriteQuote> {
         return dao.getAll()
     }
