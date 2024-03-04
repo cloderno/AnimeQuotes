@@ -4,6 +4,7 @@ import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import com.example.animequotes.R
 import com.example.animequotes.data.AppDatabase
@@ -26,26 +27,35 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.menu_home -> {
-                    replaceFragment(HomeFragment())
+                    replaceFragment(HomeFragment(), addToBackStack = false)
                     true
                 }
                 R.id.menu_favourites -> {
                     replaceFragment(FavouritesFragment())
                     true
                 }
-                else -> {
-                    false
-                }
+                else -> false
+            }
+        }
+
+        onBackPressedDispatcher?.addCallback(this) {
+            if (supportFragmentManager.backStackEntryCount > 1) {
+                supportFragmentManager.popBackStack()
+            } else {
+                finish()
             }
         }
     }
 
-    private fun replaceFragment(fragment: Fragment) {
-        supportFragmentManager.apply {
-            beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit()
-        }
+    private fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = true) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .apply {
+                if (addToBackStack) {
+                    addToBackStack(null)
+                }
+            }
+            .commit()
     }
+
 }

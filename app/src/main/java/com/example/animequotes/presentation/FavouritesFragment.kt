@@ -36,9 +36,9 @@ class FavouritesFragment : Fragment() {
 
         viewModel.getAllQuotes()
 
-        viewModel.quotes.observe(viewLifecycleOwner, { quotes ->
+        viewModel.quotes.observe(viewLifecycleOwner) { quotes ->
             adapter.setFavoriteQuotes(quotes)
-        })
+        }
 
         super.onViewCreated(view, savedInstanceState)
     }
